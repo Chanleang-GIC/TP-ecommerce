@@ -1,7 +1,7 @@
 <template>
    <div class="w-[110px] h-[31px] flex gap-2 justify-evenly pr-3 items-center rounded-md shadow-md overflow-hidden">
         <p class="translate-x-3 translate-y-[-1px] text-center font-semibold text-white">Sign up</p>
-        <img src="../assets/right-arrow-alt-regular-24.png" alt="" class="w-5 h-5  text-md">
+        <img src="../assets/rightarrow.png" alt="" class="w-5 h-5  text-md">
    </div>
 </template>
 
