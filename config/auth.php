@@ -42,9 +42,10 @@ return [
         ],
     
         'api' => [
-            'driver' => 'sanctum',
+            // 'driver' => 'sanctum',
+            'driver' => 'passport',
             'provider' => 'users',
-            'hash' => false,
+            // 'hash' => false,
         ],
     ],
 

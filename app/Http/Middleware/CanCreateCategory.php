@@ -16,19 +16,42 @@ class CanCreateCategory
      * @param \Closure $next
      * @return mixed
      */
+    // public function handle(Request $request, Closure $next)
+    // {
+    //     $authorizationHeader = $request->header('Authorization');
+        
+    //     if (!$authorizationHeader) {
+    //         return response(["message" => "Unauthorized"], 402);
+    //     }
+        
+    //     $token = str_replace('Bearer ', '', $authorizationHeader);
+        
+    //     $user = Auth::guard('sanctum')->user();
+        
+    //     if ($user) {
+    //         // Log or dump the user and role information for debugging
+    //         \Log::info('User: ' . $user->id . ', Role: ' . $user->role);
+            
+    //         if ($user->hasRole('Admin')) {
+    //             return $next($request);
+    //         }
+    //     }
+    
+    //     return response(["message" => "No permission"], 406);
+    // }
     public function handle(Request $request, Closure $next)
     {
         $authorizationHeader = $request->header('Authorization');
         
         if (!$authorizationHeader) {
-            return response(["message" => "Unauthorized"], 402);
+            return response(["message" => "Unauthorized"], 401);
         }
         
         $token = str_replace('Bearer ', '', $authorizationHeader);
         
-        $user = Auth::guard('sanctum')->user();
-        
-        if ($user) {
+        if (Auth::guard('api')->check()) {
+            $user = Auth::guard('api')->user();
+            
             // Log or dump the user and role information for debugging
             \Log::info('User: ' . $user->id . ', Role: ' . $user->role);
             
@@ -36,10 +59,9 @@ class CanCreateCategory
                 return $next($request);
             }
         }
-    
-        return response(["message" => "No permission"], 406);
+        
+        return response(["message" => "No permission"], 403);
     }
-    
     
     
 }

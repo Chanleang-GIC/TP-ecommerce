@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Laravel\Passport\Client;
 
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -53,7 +54,39 @@ class AuthController extends Controller
             }
         }
     }
-    
+    public function login1(Request $request)
+    {
+        // Validate email and password
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            throw ValidationException::withMessages($validator->errors()->all());
+        }
+
+        // Attempt to authenticate using email and password
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json(['error' => 'Invalid credentials'], 403);
+        }
+
+        $user = Auth::user();
+
+        // Revoke existing tokens
+        $user->tokens()->delete();
+
+        // Create a new token for the user
+        $token = $user->createToken('AuthToken')->accessToken;
+
+        // If remember_me is true, return the remember_token
+        if ($request->input('remember_me')) {
+            $user->update(['remember_token' => Str::random(60)]);
+            return response()->json(['token' => $token, 'user' => $user, 'remember_token' => $user->remember_token]);
+        } else {
+            return response()->json(['token' => $token, 'user' => $user]);
+        }
+    }
 
     
     public function login(Request $request)

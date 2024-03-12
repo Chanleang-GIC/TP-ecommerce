@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -60,12 +62,13 @@ Route::post('/createProduct', [ProductController::class, 'createProduct'])->midd
 Route::post('/register', [AuthController::class, 'register']);
 
 // Login
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login1', [AuthController::class, 'login1']);
 
 // Verify OTP
 Route::get('/verify-otp', [AuthController::class, 'verifyOTP'])->name('verify.otp');
 Route::middleware('auth:api')->get('/profile', [AuthController::class, 'getProfile']);
 Route::get('/getallproducts', [ProductController::class, 'getallproducts'])->middleware('can.create.category');
+// Route::get('/getallproducts', [ProductController::class, 'getallproducts'])->middleware('auth:api');
 
 
 
@@ -79,6 +82,10 @@ Route::get('/getcategorybyid', [CategoryController::class, 'getcategorybyid']);
 
 Route::delete('/deleteuser', [AuthController::class, 'deleteUser']);
 Route::middleware('auth:api')->delete('/deleteuser', [AuthController::class, 'deleteUser']);
+Route::middleware('auth:api')->get('/user',function (Request $request){
+    return $request->user();
+});
+
 
 // Verify OTP
 

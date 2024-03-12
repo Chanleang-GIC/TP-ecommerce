@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TodoController;
 
 
 /*
@@ -30,4 +31,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/home', function(){
+    $menus = ["Home", "Product", "Category", "Blog"];
+    $title = "Awesome App";
+    $purchasedItems = ["Book", "Pecil", "Eraser"];
+    // return view('frontend.home', compact("menus","title","purchasedItems"));
+    return view('frontend.home',["menus"=>$menus, "title"=>$title, "purchasedItems"=>$purchasedItems]);
+});
+
+Route::get('/todo', [TodoController::class, 'index']);
+Route::get('/todo/add', [TodoController::class, 'add']);
+Route::get('/todo/edit', [TodoController::class, 'edit']);
+Route::post('/todo/store', [TodoController::class, 'store']);
 require __DIR__.'/auth.php';
