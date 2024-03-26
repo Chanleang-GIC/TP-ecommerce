@@ -9,10 +9,14 @@
     <body>
         <div>
             @include("todo.list")
-            <form method="post" action="/todo/store">
+            <form method="post" action="/todo/store" enctype="multipart/form-data">
                 @csrf
-                Task: <input type="text" name="task" /> <br/>
-                Description: <textarea name="description"></textarea> <br/>
+                <table>
+                    <tr>Task: <input type="text" name="task" /> <br/></tr>
+                    <tr>Description: <textarea name="description"></textarea> <br/></tr>
+                    <tr>Image: <input type="file" name="image" /></tr>
+                    <tr></tr>
+                </table>
 
                 <div>
                     <button type="submit">Save Task</button>

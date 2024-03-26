@@ -6,6 +6,7 @@
         @for($i=0; $i<sizeof($todos); $i++)
             <li>
                 <input type="checkbox" />
+                <img src="/{{ str_replace('public', 'storage', $todos[$i]['image_url']) }}" />
                 {{ $todos[$i]["task"] }}
             </li>
         @endfor
