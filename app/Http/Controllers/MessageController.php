@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth');
-    }
+//    public function __construct() {
+//        $this->middleware('auth');
+//    }
 
     public function index() {
         $user = User::where('id', auth()->id())->select([
@@ -32,7 +32,7 @@ class MessageController extends Controller
 
     public function message(Request $request): JsonResponse {
         $message = Message::create([
-            'user_id' => auth()->id(),
+            'user_id' => 1,
             'text' => $request->get('text'),
         ]);
         SendMessage::dispatch($message);

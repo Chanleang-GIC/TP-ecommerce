@@ -530,16 +530,19 @@ export default {
         //     } catch (err) {
         //         console.log(err.message);
         //     }
-        // }
-    },
-    mounted() {
-        const connectWebSocket = () => {
-            window.Echo.private(webSocketChannel)
+        // },
+        connectWebSocket: () => {
+            console.log('connecting')
+            window.Echo.private("channel_for_everyone")
                 .listen('GotMessage', async (e) => {
-                    alert(e.message)
+                    console.log(e)
+                    alert(e)
                     // await getMessages();
                 });
         }
+    },
+    mounted() {
+        this.connectWebSocket();
     }
 }
 </script>
