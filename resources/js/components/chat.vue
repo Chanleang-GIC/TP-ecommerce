@@ -1,8 +1,8 @@
-<script setup>
-import { ref } from 'vue'
+<!--<script setup>-->
+<!--import { ref } from 'vue'-->
 
-const counter = ref(0)
-</script>
+<!--const counter = ref(0)-->
+<!--</script>-->
 
 <template>
     <main class="content">
@@ -518,3 +518,28 @@ const counter = ref(0)
         </div>
     </main>
 </template>
+<script>
+export default {
+    name: "ChatModule",
+    methods: {
+        // getMessages: async() => {
+        //     try {
+        //         const m = await axios.get(`${rootUrl}/messages`);
+        //         setMessages(m.data);
+        //         setTimeout(scrollToBottom, 0);
+        //     } catch (err) {
+        //         console.log(err.message);
+        //     }
+        // }
+    },
+    mounted() {
+        const connectWebSocket = () => {
+            window.Echo.private(webSocketChannel)
+                .listen('GotMessage', async (e) => {
+                    alert(e.message)
+                    // await getMessages();
+                });
+        }
+    }
+}
+</script>
