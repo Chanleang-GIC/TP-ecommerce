@@ -42,4 +42,25 @@ class MessageController extends Controller
             'message' => "Message created and job dispatched.",
         ]);
     }
+
+    public function getUserMessages($userId) {
+        // Retrieve messages for the user with eager loading of the user relationship
+        $messages = Message::where('user_id', $userId)
+                           ->with('user') // Eager load the user relationship
+                           ->get();
+    
+        // Count the number of messages retrieved
+            // Count the number of messages retrieved
+            $messageCount = $messages->count();
+
+            // Cast message count to integer explicitly
+            $messageCount = (int) $messageCount;
+
+            // Return the messages along with the message count
+            return response()->json([
+                'message_count' => $messageCount,
+                'messages' => $messages,
+            ]);
+    }
+    
 }
