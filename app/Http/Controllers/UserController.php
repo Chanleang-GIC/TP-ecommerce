@@ -15,12 +15,4 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function getUsercount($userId) {
-        // Assuming you have a Message model with appropriate relationships set up
-        $messages = Message::where('user_id', $userId)
-                           ->with('user') // Eager load the user relationship
-                           ->get();
-    
-        return response()->json($messages);
-    }
 }
