@@ -208,7 +208,8 @@ export default {
             window.Echo.private("channel_for_everyone")
                 .listen('GotMessage', async (e) => {
                     console.log(e);
-                    alert(e);
+                    // alert(e);
+                    location.reload();
                 });
         }
     },
@@ -216,6 +217,7 @@ export default {
         this.fetchUsers();
         this.connectWebSocket();
     }
+    
 }
 </script>
 
