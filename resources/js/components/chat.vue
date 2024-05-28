@@ -22,7 +22,7 @@
                                             <span class="fas fa-circle chat-online"></span> Online
                                         </div>
                                     </div>
-                                    <div class="d-flex w-6 h-6 bg-success text-white items-center justify-center">{{ messages_count }}</div>
+                                    <div class="d-flex w-6 h-6 bg-success text-white items-center justify-center">{{ user.message_count }}</div>
                                 </div>
                             </a>
                         </div>
@@ -169,7 +169,6 @@ export default {
             users: [],
             selectedUser: null,
             messages: [],
-            messages_count: 0,
             currentUser: {
                 id: 1,
                 name: "Your Name",
@@ -190,12 +189,10 @@ export default {
         async fetchMessages(user) {
             try {
                 const userId = user.id;
-                console.log('User ID:', userId);
+                // console.log('User ID:', userId);
                 const response = await axios.get(`http://127.0.0.1:8000/api/messages/${userId}`);
-                this.messages = response.data.messages; 
-                this.messages_count= response.data.message_count;// Extract messages array from response
+                this.messages = response.data.messages; // Extract messages array from response
                 console.log('Messages:', this.messages);
-                console.log('Messages_count:', this.messages_count);
             } catch (error) {
                 console.error('Error fetching messages:', error);
             }
